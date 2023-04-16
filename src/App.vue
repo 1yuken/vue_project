@@ -19,6 +19,12 @@
                     </template>
                     <v-list-item-title>{{ link.title }}</v-list-item-title>
                 </v-list-item>
+                <v-list-item @click="onLogout" v-if="isUserLoggedIn">
+                    <template v-slot:prepend>
+                        <v-icon icon="mdi-exit-to-app"></v-icon>
+                    </template>
+                    <v-list-item-title>Logout</v-list-item-title>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
         <v-app-bar app dark color="primary">
@@ -34,12 +40,15 @@
                     <v-icon start :icon="link.icon"></v-icon>
                     {{ link.title }}
                 </v-btn>
+                <v-btn @click="onLogout" v-if="isUserLoggedIn">
+                    <v-icon start icon="mdi-exit-to-app"></v-icon>
+                    Logout
+                </v-btn>
             </v-toolbar-items>
         </v-app-bar>
         <v-main>
             <router-view></router-view>
         </v-main>
-
         <v-snackbar v-model="error" multi-line :timeout="2000" color="primary">
             {{ error }}
             <template v-slot:actions>
@@ -48,7 +57,6 @@
                 </v-btn>
             </template>
         </v-snackbar>
-
     </v-app>
 </template>
         
@@ -91,7 +99,11 @@ export default {
     methods: {
         closeError() {
             this.$store.dispatch('clearError')
+        },
+        onLogout() {
+            this.$store.dispatch('logoutUser')
+            this.$router.push("/")
         }
-    }
+    },
 }
 </script>
