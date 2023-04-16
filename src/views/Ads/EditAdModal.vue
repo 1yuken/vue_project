@@ -15,8 +15,12 @@
             <v-row justify="center">
                 <v-col cols="12">
                     <v-card-text>
-                        Lorem ipsum.
+                        <v-text-field name="title" label="Title" type="text" v-model="editedTitle">
+                        </v-text-field>
+                        <v-textarea name="desc" label="Description" type="text" v-model="editedDesc"
+                            class="mb-3"></v-textarea>
                     </v-card-text>
+
                 </v-col>
             </v-row>
 
@@ -24,8 +28,8 @@
                 <v-col cols="12">
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <modal-dialog></modal-dialog>
-                        <v-btn class="success">Buy</v-btn>
+                        <v-btn>Cancel</v-btn>
+                        <v-btn color="success">Save</v-btn>
                     </v-card-actions>
                 </v-col>
             </v-row>
@@ -34,20 +38,15 @@
 </template>
     
 <script>
-import EditAdModal from '../EditAdModal'
 export default {
-    props: ['id'],
-    computed: {
-        ad() {
-            const id = this.id
-            return this.$store.getters.adById(id)
+    data() {
+        return {
+            modal: false,
+            editedTitle: "",
+            editedDesc: ""
         }
-    },
-    components: {
-        'modal-dialog': EditAdModal
     }
-} 
+}	
 </script>
-
 
     
